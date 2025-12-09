@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hello_flutter/api/home.dart';
 import 'package:hello_flutter/pages/Cart/index.dart';
 import 'package:hello_flutter/pages/Category/index.dart';
 import 'package:hello_flutter/pages/Home/index.dart';
 import 'package:hello_flutter/pages/Mine/index.dart';
+import 'package:hello_flutter/viewmodels/home.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -13,6 +15,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
+  List<HeadCategoryItem> _headCategoryList = [];
 
   final _tabList = [
     {
@@ -37,6 +40,12 @@ class _MainPageState extends State<MainPage> {
     },
   ];
 
+  @override
+  void initState() {
+    super.initState();
+    _getHeadCategoryList();
+  }
+
   List<BottomNavigationBarItem> _getTabBarWidget() {
     return List.generate(_tabList.length, (index) {
       return BottomNavigationBarItem(
@@ -55,9 +64,16 @@ class _MainPageState extends State<MainPage> {
     return [
       const HomeView(),
       const CartView(),
-      const CategoryView(),
+      CategoryView(categoryList: _headCategoryList),
       const MineView(),
     ];
+  }
+
+  Future<void> _getHeadCategoryList() async {
+    final res = await getHeadCategoryListService();
+    setState(() {
+      _headCategoryList = res;
+    });
   }
 
   @override

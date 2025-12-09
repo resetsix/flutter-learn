@@ -6,4 +6,5 @@ class BaseConf {
 
 class HttpConf {
   static const BANNER_LIST = "/home/banner";
+  static const HEAD_CATEGORY_LIST = "/home/category/head";
 }

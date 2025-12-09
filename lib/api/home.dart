@@ -7,3 +7,9 @@ Future<List<BannerItem>> getBannerListService() async {
     return BannerItem.fromJson(item as Map<String, dynamic>);
   }).toList();
 }
+
+Future<List<HeadCategoryItem>> getHeadCategoryListService() async {
+  return (await fetch.get(HttpConf.HEAD_CATEGORY_LIST, {}) as List).map((item) {
+    return HeadCategoryItem.fromJson(item as Map<String, dynamic>);
+  }).toList();
+}
