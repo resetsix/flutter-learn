@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hello_flutter/api/home.dart';
 import 'package:hello_flutter/components/Home/hot_view.dart';
 import 'package:hello_flutter/components/Home/more_list_view.dart';
 import 'package:hello_flutter/components/Home/slider_view.dart';
@@ -14,20 +15,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  final _bannerList = [
-    BannerItem(
-      id: "1",
-      imgUrl: "https://yjy-teach-oss.oss-cn-beijing.aliyuncs.com/meituan/1.jpg",
-    ),
-    BannerItem(
-      id: "2",
-      imgUrl: "https://yjy-teach-oss.oss-cn-beijing.aliyuncs.com/meituan/2.png",
-    ),
-    BannerItem(
-      id: "2",
-      imgUrl: "https://yjy-teach-oss.oss-cn-beijing.aliyuncs.com/meituan/3.jpg",
-    ),
-  ];
+  List<BannerItem> _bannerList = [];
 
   // 首页主体
   List<Widget> _getScrollChildren() {
@@ -55,6 +43,20 @@ class _HomeViewState extends State<HomeView> {
       const SliverToBoxAdapter(child: SizedBox(height: 10)),
       const MoreListView(),
     ];
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _getBannerList();
+  }
+
+  Future<void> _getBannerList() async {
+    final res = await getBannerListService();
+    setState(() {
+      _bannerList = res;
+    });
   }
 
   @override

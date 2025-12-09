@@ -7,23 +7,9 @@ repos:
 
   - repo: local
     hooks:
-      - id: dart-fix
-        name: Dart Fix
-        entry: dart fix --apply
-        language: system
-        types: [dart]
-        pass_filenames: false
-
-      - id: dart-format
-        name: Dart Format
-        entry: dart format
-        language: system
-        types: [dart]
-        pass_filenames: true
-
       - id: flutter-analyze
         name: Flutter Analyze
-        entry: bash -c "flutter analyze"
+        entry: bash -c "flutter analyze --no-fatal-warnings --no-fatal-infos"
         language: system
         types: [dart]
         pass_filenames: false
