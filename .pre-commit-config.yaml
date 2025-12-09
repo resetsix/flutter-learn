@@ -1,0 +1,29 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+
+  - repo: local
+    hooks:
+      - id: dart-fix
+        name: Dart Fix
+        entry: dart fix --apply
+        language: system
+        types: [dart]
+        pass_filenames: false
+
+      - id: dart-format
+        name: Dart Format
+        entry: dart format
+        language: system
+        types: [dart]
+        pass_filenames: true
+
+      - id: flutter-analyze
+        name: Flutter Analyze
+        entry: bash -c "flutter analyze"
+        language: system
+        types: [dart]
+        pass_filenames: false
