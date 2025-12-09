@@ -16,7 +16,7 @@ Flutter AI App MVP 实战开发计划
 | **语言** | Dart | 强类型语言 | TypeScript |
 | **核心框架** | Flutter | UI 框架 | React |
 | **状态管理** | **flutter_riverpod** + **riverpod_annotation** | 全局状态管理 | Recoil / Jotai / Redux Toolkit |
-| **网络请求** | **dio** | HTTP 请求（支持拦截器） | Axios |
+| **网络请求** | **dio/Retrofit** | HTTP 请求（支持拦截器） | Axios |
 | **路由管理** | **go_router** | 页面跳转与深链接 | React Router |
 | **Markdown** | **flutter_markdown** | 渲染 AI 返回的文本 | `react-markdown` |
 | **本地存储** | shared_preferences | 存 Token/配置 | `localStorage` |
@@ -29,6 +29,11 @@ Flutter AI App MVP 实战开发计划
 | **设备信息** | device_info_plus | 获取唯一标识 | `navigator.userAgent` |
 | **权限管理** | permission_handler | 请求相册/麦克风权限 | (Web 浏览器自动弹窗) |
 | **图标启动** | flutter_launcher_icons / flutter_native_splash | 生成图标与启动页 | Webpack PWA 插件 |
+
+补充：
+
+- 解决静态资源硬编码问题：flutter_gen
+- 代码生成器：json_serializable + freezed
 
 ---
 
