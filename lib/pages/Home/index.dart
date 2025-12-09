@@ -4,6 +4,7 @@ import 'package:hello_flutter/components/Home/more_list_view.dart';
 import 'package:hello_flutter/components/Home/slider_view.dart';
 import 'package:hello_flutter/components/Home/suggestion_view.dart';
 import 'package:hello_flutter/pages/Category/index.dart';
+import 'package:hello_flutter/viewmodels/home.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -13,9 +14,24 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  final _bannerList = [
+    BannerItem(
+      id: "1",
+      imgUrl: "https://yjy-teach-oss.oss-cn-beijing.aliyuncs.com/meituan/1.jpg",
+    ),
+    BannerItem(
+      id: "2",
+      imgUrl: "https://yjy-teach-oss.oss-cn-beijing.aliyuncs.com/meituan/2.png",
+    ),
+    BannerItem(
+      id: "2",
+      imgUrl: "https://yjy-teach-oss.oss-cn-beijing.aliyuncs.com/meituan/3.jpg",
+    ),
+  ];
+
   List<Widget> _getScrollChildren() {
     return [
-      const SliverToBoxAdapter(child: SliderView()),
+      SliverToBoxAdapter(child: SliderView(bannerList: _bannerList)),
       const SliverToBoxAdapter(child: SizedBox(height: 10)),
       const SliverToBoxAdapter(child: CategoryView()),
       const SliverToBoxAdapter(child: SizedBox(height: 10)),
