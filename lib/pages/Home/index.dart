@@ -29,6 +29,7 @@ class _HomeViewState extends State<HomeView> {
     ),
   ];
 
+  // 首页主体
   List<Widget> _getScrollChildren() {
     return [
       SliverToBoxAdapter(child: SliderView(bannerList: _bannerList)),
