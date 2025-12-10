@@ -17,6 +17,27 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   List<BannerItem> _bannerList = [];
   List<HeadCategoryItem> _headCategoryList = [];
+  SuggestionResultRes _hotResultList = SuggestionResultRes(
+    id: '',
+    title: '',
+    subTypes: [],
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    _getSuggestionResultList();
+
+    _getBannerList();
+    _getHeadCategoryList();
+  }
+
+  Future<void> _getSuggestionResultList() async {
+    final res = await getSuggestionResultListService();
+    setState(() {
+      _hotResultList = res;
+    });
+  }
 
   // 首页主体
   List<Widget> _getScrollChildren() {
@@ -25,7 +46,7 @@ class _HomeViewState extends State<HomeView> {
       const SliverToBoxAdapter(child: SizedBox(height: 10)),
       SliverToBoxAdapter(child: CategoryView(categoryList: _headCategoryList)),
       const SliverToBoxAdapter(child: SizedBox(height: 10)),
-      const SliverToBoxAdapter(child: SuggestionView()),
+      SliverToBoxAdapter(child: SuggestionView(data: _hotResultList)),
       const SliverToBoxAdapter(child: SizedBox(height: 10)),
       const SliverToBoxAdapter(
         child: Padding(
@@ -44,14 +65,6 @@ class _HomeViewState extends State<HomeView> {
       const SliverToBoxAdapter(child: SizedBox(height: 10)),
       const MoreListView(),
     ];
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    _getBannerList();
-    _getHeadCategoryList();
   }
 
   Future<void> _getBannerList() async {

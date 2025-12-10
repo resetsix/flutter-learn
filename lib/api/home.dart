@@ -13,3 +13,11 @@ Future<List<HeadCategoryItem>> getHeadCategoryListService() async {
     return HeadCategoryItem.fromJson(item as Map<String, dynamic>);
   }).toList();
 }
+
+Future<SuggestionResultRes> getSuggestionResultListService() async {
+  final res = SuggestionResultRes.fromJson(
+    await fetch.get(HttpConf.HOT_LIST, {}),
+  );
+  print(res);
+  return res;
+}
