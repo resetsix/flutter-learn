@@ -15,9 +15,17 @@ Future<List<HeadCategoryItem>> getHeadCategoryListService() async {
 }
 
 Future<SuggestionResultRes> getSuggestionResultListService() async {
-  final res = SuggestionResultRes.fromJson(
-    await fetch.get(HttpConf.HOT_LIST, {}),
+  return SuggestionResultRes.fromJson(await fetch.get(HttpConf.HOT_LIST, {}));
+}
+
+Future<SuggestionResultRes> getInvogueResultListService() async {
+  return SuggestionResultRes.fromJson(
+    await fetch.get(HttpConf.IN_VOGUE_LIST, {}),
   );
-  print(res);
-  return res;
+}
+
+Future<SuggestionResultRes> getOnsstopResultListService() async {
+  return SuggestionResultRes.fromJson(
+    await fetch.get(HttpConf.ONE_STOP_LIST, {}),
+  );
 }

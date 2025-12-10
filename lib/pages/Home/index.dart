@@ -22,6 +22,16 @@ class _HomeViewState extends State<HomeView> {
     title: '',
     subTypes: [],
   );
+  SuggestionResultRes _invogueResultList = SuggestionResultRes(
+    id: '',
+    title: '',
+    subTypes: [],
+  );
+  SuggestionResultRes _hotOnestopList = SuggestionResultRes(
+    id: '',
+    title: '',
+    subTypes: [],
+  );
 
   @override
   void initState() {
@@ -30,6 +40,8 @@ class _HomeViewState extends State<HomeView> {
 
     _getBannerList();
     _getHeadCategoryList();
+    _getInvogueList();
+    _getOnestopList();
   }
 
   Future<void> _getSuggestionResultList() async {
@@ -37,34 +49,6 @@ class _HomeViewState extends State<HomeView> {
     setState(() {
       _hotResultList = res;
     });
-  }
-
-  // 首页主体
-  List<Widget> _getScrollChildren() {
-    return [
-      SliverToBoxAdapter(child: SliderView(bannerList: _bannerList)),
-      const SliverToBoxAdapter(child: SizedBox(height: 10)),
-      SliverToBoxAdapter(child: CategoryView(categoryList: _headCategoryList)),
-      const SliverToBoxAdapter(child: SizedBox(height: 10)),
-      SliverToBoxAdapter(child: SuggestionView(data: _hotResultList)),
-      const SliverToBoxAdapter(child: SizedBox(height: 10)),
-      const SliverToBoxAdapter(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10),
-          child: Flex(
-            direction: Axis.horizontal,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(child: HotView()),
-              SizedBox(width: 10),
-              Expanded(child: HotView()),
-            ],
-          ),
-        ),
-      ),
-      const SliverToBoxAdapter(child: SizedBox(height: 10)),
-      const MoreListView(),
-    ];
   }
 
   Future<void> _getBannerList() async {
@@ -79,6 +63,48 @@ class _HomeViewState extends State<HomeView> {
     setState(() {
       _headCategoryList = res;
     });
+  }
+
+  Future<void> _getInvogueList() async {
+    final res = await getInvogueResultListService();
+    setState(() {
+      _invogueResultList = res;
+    });
+  }
+
+  Future<void> _getOnestopList() async {
+    final res = await getOnsstopResultListService();
+    setState(() {
+      _hotOnestopList = res;
+    });
+  }
+
+  // 首页主体
+  List<Widget> _getScrollChildren() {
+    return [
+      SliverToBoxAdapter(child: SliderView(bannerList: _bannerList)),
+      const SliverToBoxAdapter(child: SizedBox(height: 10)),
+      SliverToBoxAdapter(child: CategoryView(categoryList: _headCategoryList)),
+      const SliverToBoxAdapter(child: SizedBox(height: 10)),
+      SliverToBoxAdapter(child: SuggestionView(data: _hotResultList)),
+      const SliverToBoxAdapter(child: SizedBox(height: 10)),
+      SliverToBoxAdapter(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Flex(
+            direction: Axis.horizontal,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(child: HotView(data: _invogueResultList)),
+              const SizedBox(width: 10),
+              Expanded(child: HotView(data: _hotOnestopList)),
+            ],
+          ),
+        ),
+      ),
+      const SliverToBoxAdapter(child: SizedBox(height: 10)),
+      const MoreListView(),
+    ];
   }
 
   @override
