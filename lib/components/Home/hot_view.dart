@@ -11,13 +11,13 @@ class HotView extends StatefulWidget {
 }
 
 class _HotViewState extends State<HotView> {
-  List<SuggestionGoodItem> _getItems() {
+  List<SuggestionGoodItem> get _getItems {
     if (widget.data.subTypes.isEmpty) return [];
     return widget.data.subTypes.first.goodsItems.items.take(2).toList();
   }
 
   Widget _getChildrenList() {
-    final list = _getItems();
+    final list = _getItems;
     return Row(
       spacing: 10,
       children: List.generate(list.length, (index) {
