@@ -1,3 +1,4 @@
+import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/api/home.dart';
 import 'package:hello_flutter/components/Home/hot_view.dart';
@@ -33,8 +34,7 @@ class _HomeViewState extends State<HomeView> {
     subTypes: [],
   );
   List<HomeRecommendRes> _homeRecommendList = [];
-
-  final _scrollControll = ScrollController();
+  // final _controller = ScrollController();
   int _page = 1;
   bool _isLoading = false;
   bool _hasMore = true;
@@ -42,50 +42,51 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
-    _getSuggestionResultList();
+    _initFetch();
+    // _registerEvent();
 
-    _getBannerList();
-    _getHeadCategoryList();
-    _getInvogueList();
-    _getOnestopList();
-    _getRecommendList();
-    _registerEvent();
+    // _getSuggestionResultList();
+    // _getBannerList();
+    // _getHeadCategoryList();
+    // _getInvogueList();
+    // _getOnestopList();
+    // _getRecommendList();
   }
 
-  Future<void> _getSuggestionResultList() async {
-    final res = await getSuggestionResultListService();
-    setState(() {
-      _hotResultList = res;
-    });
-  }
+  // Future<void> _getSuggestionResultList() async {
+  //   final res = await getSuggestionResultListService();
+  //   setState(() {
+  //     _hotResultList = res;
+  //   });
+  // }
 
-  Future<void> _getBannerList() async {
-    final res = await getBannerListService();
-    setState(() {
-      _bannerList = res;
-    });
-  }
+  // Future<void> _getBannerList() async {
+  //   final res = await getBannerListService();
+  //   setState(() {
+  //     _bannerList = res;
+  //   });
+  // }
 
-  Future<void> _getHeadCategoryList() async {
-    final res = await getHeadCategoryListService();
-    setState(() {
-      _headCategoryList = res;
-    });
-  }
+  // Future<void> _getHeadCategoryList() async {
+  //   final res = await getHeadCategoryListService();
+  //   setState(() {
+  //     _headCategoryList = res;
+  //   });
+  // }
 
-  Future<void> _getInvogueList() async {
-    final res = await getInvogueResultListService();
-    setState(() {
-      _invogueResultList = res;
-    });
-  }
+  // Future<void> _getInvogueList() async {
+  //   final res = await getInvogueResultListService();
+  //   setState(() {
+  //     _invogueResultList = res;
+  //   });
+  // }
 
-  Future<void> _getOnestopList() async {
-    final res = await getOnsstopResultListService();
-    setState(() {
-      _hotOnestopList = res;
-    });
-  }
+  // Future<void> _getOnestopList() async {
+  //   final res = await getOnsstopResultListService();
+  //   setState(() {
+  //     _hotOnestopList = res;
+  //   });
+  // }
 
   Future<void> _getRecommendList() async {
     if (_isLoading || !_hasMore) {
@@ -106,13 +107,56 @@ class _HomeViewState extends State<HomeView> {
     }
   }
 
-  void _registerEvent() {
-    _scrollControll.addListener(() {
-      if (_scrollControll.position.maxScrollExtent >=
-          _scrollControll.position.pixels - 50) {
-        _getRecommendList();
-      }
+  // void _registerEvent() {
+  //   _controller.addListener(() {
+  //     if (_controller.position.maxScrollExtent >=
+  //         _controller.position.pixels - 50) {
+  //       _getRecommendList();
+  //     }
+  //   });
+  // }
+
+  Future<void> _onRefresh() async {
+    _page = 1;
+    _isLoading = false;
+    _hasMore = true;
+    _initFetch();
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        width: 110,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadiusGeometry.circular(40),
+        ),
+        content: const Text("刷新成功！", textAlign: TextAlign.center),
+      ),
+    );
+  }
+
+  Future<void> _initFetch() async {
+    final results = await Future.wait([
+      getBannerListService(),
+      getHeadCategoryListService(),
+      getSuggestionResultListService(),
+      getInvogueResultListService(),
+      getOnsstopResultListService(),
+    ]);
+
+    if (!mounted) {
+      return;
+    }
+
+    setState(() {
+      _bannerList = results[0] as List<BannerItem>;
+      _headCategoryList = results[1] as List<HeadCategoryItem>;
+      _hotResultList = results[2] as SuggestionResultRes;
+      _invogueResultList = results[3] as SuggestionResultRes;
+      _hotOnestopList = results[4] as SuggestionResultRes;
     });
+
+    _getRecommendList();
   }
 
   // 首页主体
@@ -145,15 +189,23 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      controller: _scrollControll,
-      slivers: _getScrollChildren(),
+    return EasyRefresh(
+      triggerAxis: Axis.vertical,
+      onRefresh: _onRefresh,
+      header: const MaterialHeader(),
+      footer: const CupertinoFooter(),
+      onLoad: _getRecommendList,
+      child: CustomScrollView(
+        scrollDirection: Axis.vertical,
+        // controller: _controller,
+        slivers: _getScrollChildren(),
+      ),
     );
   }
 
   @override
   void dispose() {
-    _scrollControll.dispose();
+    // _controller.dispose();
     super.dispose();
   }
 }
