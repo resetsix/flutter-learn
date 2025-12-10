@@ -32,6 +32,7 @@ class _HomeViewState extends State<HomeView> {
     title: '',
     subTypes: [],
   );
+  List<HomeRecommendRes> _homeRecommendList = [];
 
   @override
   void initState() {
@@ -42,6 +43,7 @@ class _HomeViewState extends State<HomeView> {
     _getHeadCategoryList();
     _getInvogueList();
     _getOnestopList();
+    _getRecommendList();
   }
 
   Future<void> _getSuggestionResultList() async {
@@ -79,6 +81,13 @@ class _HomeViewState extends State<HomeView> {
     });
   }
 
+  Future<void> _getRecommendList() async {
+    final res = await getHomeRecommendListService();
+    setState(() {
+      _homeRecommendList = res;
+    });
+  }
+
   // 首页主体
   List<Widget> _getScrollChildren() {
     return [
@@ -103,7 +112,7 @@ class _HomeViewState extends State<HomeView> {
         ),
       ),
       const SliverToBoxAdapter(child: SizedBox(height: 10)),
-      const MoreListView(),
+      MoreListView(data: _homeRecommendList),
     ];
   }
 

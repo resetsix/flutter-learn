@@ -29,3 +29,11 @@ Future<SuggestionResultRes> getOnsstopResultListService() async {
     await fetch.get(HttpConf.ONE_STOP_LIST, {}),
   );
 }
+
+Future<List<HomeRecommendRes>> getHomeRecommendListService() async {
+  return (await fetch.get(HttpConf.HOME_RECOMMEND_LIST, {}) as List).map((
+    item,
+  ) {
+    return HomeRecommendRes.fromJson(item as Map<String, dynamic>);
+  }).toList();
+}

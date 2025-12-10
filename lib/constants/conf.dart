@@ -10,4 +10,5 @@ class HttpConf {
   static const HOT_LIST = "/hot/preference";
   static const IN_VOGUE_LIST = "/hot/inVogue";
   static const ONE_STOP_LIST = "/hot/oneStop";
+  static const HOME_RECOMMEND_LIST = "/home/recommend";
 }
