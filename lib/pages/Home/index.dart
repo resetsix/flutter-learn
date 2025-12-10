@@ -35,6 +35,7 @@ class _HomeViewState extends State<HomeView> {
   );
   List<HomeRecommendRes> _homeRecommendList = [];
   // final _controller = ScrollController();
+  final _refreshController = EasyRefreshController();
   int _page = 1;
   bool _isLoading = false;
   bool _hasMore = true;
@@ -43,7 +44,7 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     super.initState();
     _initFetch();
-    // _registerEvent();
+    _registerEvent();
 
     // _getSuggestionResultList();
     // _getBannerList();
@@ -107,14 +108,18 @@ class _HomeViewState extends State<HomeView> {
     }
   }
 
-  // void _registerEvent() {
-  //   _controller.addListener(() {
-  //     if (_controller.position.maxScrollExtent >=
-  //         _controller.position.pixels - 50) {
-  //       _getRecommendList();
-  //     }
-  //   });
-  // }
+  void _registerEvent() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _refreshController.callRefresh();
+    });
+
+    // _controller.addListener(() {
+    //   if (_controller.position.maxScrollExtent >=
+    //       _controller.position.pixels - 50) {
+    //     _getRecommendList();
+    //   }
+    // });
+  }
 
   Future<void> _onRefresh() async {
     _page = 1;
@@ -190,6 +195,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return EasyRefresh(
+      controller: _refreshController,
       triggerAxis: Axis.vertical,
       onRefresh: _onRefresh,
       header: const MaterialHeader(),
@@ -206,6 +212,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   void dispose() {
     // _controller.dispose();
+    _refreshController.dispose();
     super.dispose();
   }
 }
