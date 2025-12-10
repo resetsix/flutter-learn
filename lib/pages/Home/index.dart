@@ -34,6 +34,11 @@ class _HomeViewState extends State<HomeView> {
   );
   List<HomeRecommendRes> _homeRecommendList = [];
 
+  final _scrollControll = ScrollController();
+  int _page = 1;
+  bool _isLoading = false;
+  bool _hasMore = true;
+
   @override
   void initState() {
     super.initState();
@@ -44,6 +49,7 @@ class _HomeViewState extends State<HomeView> {
     _getInvogueList();
     _getOnestopList();
     _getRecommendList();
+    _registerEvent();
   }
 
   Future<void> _getSuggestionResultList() async {
@@ -82,9 +88,30 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Future<void> _getRecommendList() async {
-    final res = await getHomeRecommendListService();
+    if (_isLoading || !_hasMore) {
+      return;
+    }
+    final int requestLimit = _page * 8;
+    _isLoading = true;
+    final res = await getHomeRecommendListService({"limit": requestLimit});
+    _isLoading = false;
+
     setState(() {
       _homeRecommendList = res;
+    });
+    _page++;
+
+    if (res.length < requestLimit) {
+      _hasMore = false;
+    }
+  }
+
+  void _registerEvent() {
+    _scrollControll.addListener(() {
+      if (_scrollControll.position.maxScrollExtent >=
+          _scrollControll.position.pixels - 50) {
+        _getRecommendList();
+      }
     });
   }
 
@@ -118,6 +145,15 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(slivers: _getScrollChildren());
+    return CustomScrollView(
+      controller: _scrollControll,
+      slivers: _getScrollChildren(),
+    );
+  }
+
+  @override
+  void dispose() {
+    _scrollControll.dispose();
+    super.dispose();
   }
 }

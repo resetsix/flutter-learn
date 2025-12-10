@@ -25,7 +25,11 @@ class _MoreListViewState extends State<MoreListView> {
           ),
           Padding(
             padding: const EdgeInsetsGeometry.symmetric(horizontal: 6),
-            child: Text(item.name),
+            child: Text(
+              item.name,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
           Padding(
             padding: const EdgeInsetsGeometry.symmetric(horizontal: 6),
@@ -88,7 +92,7 @@ class _MoreListViewState extends State<MoreListView> {
 
 class PriceText extends StatelessWidget {
   final double price;
-  final double? originalPrice; // 可选，如果不传就不显示原价样式
+  final double? originalPrice;
 
   const PriceText({required this.price, super.key, this.originalPrice});
 

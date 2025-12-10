@@ -30,8 +30,10 @@ Future<SuggestionResultRes> getOnsstopResultListService() async {
   );
 }
 
-Future<List<HomeRecommendRes>> getHomeRecommendListService() async {
-  return (await fetch.get(HttpConf.HOME_RECOMMEND_LIST, {}) as List).map((
+Future<List<HomeRecommendRes>> getHomeRecommendListService(
+  Map<String, dynamic> params,
+) async {
+  return (await fetch.get(HttpConf.HOME_RECOMMEND_LIST, params) as List).map((
     item,
   ) {
     return HomeRecommendRes.fromJson(item as Map<String, dynamic>);
