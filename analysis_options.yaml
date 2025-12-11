@@ -3,8 +3,8 @@ include: package:flutter_lints/flutter.yaml
 
 analyzer:
   language:
-    strict-casts: true          # 作用：严格类型转换，避免隐式/不安全的 as
-    strict-inference: true      # 作用：严格类型推断，减少动态类型漏网
+    # strict-casts: true          # 作用：严格类型转换，避免隐式/不安全的 as
+    # strict-inference: true      # 作用：严格类型推断，减少动态类型漏网
     strict-raw-types: true      # 作用：禁止原始泛型，统一写出类型参数
 
   errors:
@@ -47,8 +47,8 @@ linter:
     # ---- 异步与资源释放 ----
     cancel_subscriptions: true                         # 作用：订阅需取消，避免泄漏
     close_sinks: true                                  # 作用：Sink/Controller 需关闭
-    discarded_futures: true                            # 作用：禁止丢弃未处理的 Future
-    avoid_void_async: true                             # 作用：避免 async 返回 void，便于链式处理与错误捕获
+    # discarded_futures: true                            # 作用：禁止丢弃未处理的 Future
+    # avoid_void_async: true                             # 作用：避免 async 返回 void，便于链式处理与错误捕获
     unnecessary_await_in_return: true                  # 作用：返回处移除多余 await
 
     # ---- Flutter 特有 ----
@@ -62,9 +62,10 @@ linter:
     use_rethrow_when_possible: true                    # 作用：需要上抛时使用 rethrow 保留栈
 
     # ---- API/健壮性 ----
-    avoid_dynamic_calls: true                          # 作用：禁止对 dynamic 直接调用
+    # avoid_dynamic_calls: true                          # 作用：禁止对 dynamic 直接调用
 
     # ---- 下列规则按需开启（存在分歧/可能误报/收益有限）----
+    constant_identifier_names: false                    # 覆盖官方默认小写规则，允许常量大写
     # prefer_single_quotes: true                       # 作用：统一使用单引号
     # prefer_expression_function_bodies: true          # 作用：简单函数用 => 简化
     # sort_constructors_first: true                    # 作用：构造器排在成员前

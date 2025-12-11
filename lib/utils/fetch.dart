@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:hello_flutter/constants/conf.dart';
+import 'package:hello_flutter/stores/auth.dart';
 
 class Fetch {
   final _dio = Dio();
@@ -17,7 +18,11 @@ class Fetch {
   void _addInterceptor() {
     _dio.interceptors.add(
       InterceptorsWrapper(
-        onRequest: (options, handler) {
+        onRequest: (options, handler) async {
+          final token = await AuthStore.getToken();
+          if (token != null) {
+            options.headers["Authorization"] = "Bearer $token";
+          }
           handler.next(options);
         },
         onResponse: (response, handler) {
@@ -29,24 +34,40 @@ class Fetch {
           handler.reject(DioException(requestOptions: response.requestOptions));
         },
         onError: (error, handler) {
-          handler.reject(error);
+          handler.reject(
+            DioException(
+              requestOptions: error.requestOptions,
+              message: error.response?.data["msg"] ?? " ",
+            ),
+          );
         },
       ),
     );
   }
 
-  Future<dynamic> get(String url, Map<String, dynamic>? params) {
+  Future<dynamic> get(String url, {Map<String, dynamic>? params}) {
     return _handleRes(_dio.get(url, queryParameters: params));
   }
 
-  Future<dynamic> _handleRes(Future<Response<dynamic>> task) async {
-    final res = await task;
-    final data = res.data as Map<String, dynamic>;
-    if (data["code"] == BaseConf.SUCCESS_CODE) {
-      return data["result"];
-    }
+  Future<dynamic> post(String url, {Map<String, dynamic>? data}) {
+    print('data: $data');
+    return _handleRes(_dio.post(url, data: data));
+  }
 
-    throw Exception(data["msg"]);
+  Future<dynamic> _handleRes(Future<Response<dynamic>> task) async {
+    try {
+      final res = await task;
+      final data = res.data as Map<String, dynamic>;
+      if (data["code"] == BaseConf.SUCCESS_CODE) {
+        return data["result"];
+      }
+      throw DioException(
+        requestOptions: res.requestOptions,
+        message: data["msg"],
+      );
+    } catch (e) {
+      rethrow;
+    }
   }
 }
 

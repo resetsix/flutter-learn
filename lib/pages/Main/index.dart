@@ -30,7 +30,7 @@ class _MainPageState extends State<MainPage> {
     },
     {
       "icon": "assets/images/ic_public_cart_normal.png",
-      "active_icon": "assets/images/ic_public_pro_active.png",
+      "active_icon": "assets/images/ic_public_cart_active.png",
       "text": "购物车",
     },
     {
@@ -63,8 +63,8 @@ class _MainPageState extends State<MainPage> {
   List<Widget> _getChildren() {
     return [
       const HomeView(),
-      const CartView(),
       CategoryView(categoryList: _headCategoryList),
+      const CartView(),
       const MineView(),
     ];
   }
@@ -78,21 +78,20 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: SafeArea(
-          child: IndexedStack(index: _currentIndex, children: _getChildren()),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          showUnselectedLabels: true,
-          selectedItemColor: Colors.green,
-          unselectedItemColor: Colors.black,
-          onTap: (value) {
-            setState(() => _currentIndex = value);
-          },
-          items: _getTabBarWidget(),
-          currentIndex: _currentIndex,
-        ),
+    return Scaffold(
+      body: SafeArea(
+        child: IndexedStack(index: _currentIndex, children: _getChildren()),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        showUnselectedLabels: true,
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.black,
+        onTap: (value) {
+          setState(() => _currentIndex = value);
+        },
+        items: _getTabBarWidget(),
+        currentIndex: _currentIndex,
+        enableFeedback: false,
       ),
     );
   }

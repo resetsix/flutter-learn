@@ -3,7 +3,7 @@ import 'package:hello_flutter/pages/Login/index.dart';
 import 'package:hello_flutter/pages/Main/index.dart';
 
 Widget getRootWidget() {
-  return MaterialApp(initialRoute: "/", routes: mainRoutes());
+  return MaterialApp(initialRoute: "/login", routes: mainRoutes());
 }
 
 Map<String, Widget Function(BuildContext)> mainRoutes() {

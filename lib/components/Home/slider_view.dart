@@ -61,7 +61,7 @@ class _SliderViewState extends State<SliderView> {
                 duration: const Duration(milliseconds: 300),
                 decoration: BoxDecoration(
                   color: _currentIndex == index
-                      ? Colors.blue
+                      ? Colors.white
                       : const Color.fromRGBO(0, 0, 0, 0.3),
                   borderRadius: BorderRadius.circular(24),
                 ),
