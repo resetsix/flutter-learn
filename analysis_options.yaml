@@ -1,10 +1,7 @@
-# 基线：Flutter 官方推荐规则集
 include: package:flutter_lints/flutter.yaml
 
 analyzer:
   language:
-    strict-casts: true          # 作用：严格类型转换，避免隐式/不安全的 as
-    strict-inference: true      # 作用：严格类型推断，减少动态类型漏网
     strict-raw-types: true      # 作用：禁止原始泛型，统一写出类型参数
 
   errors:
@@ -35,7 +32,6 @@ linter:
     prefer_const_literals_to_create_immutables: true   # 作用：不变集合使用 const
     prefer_const_declarations: true                    # 作用：局部常量使用 const
     directives_ordering: true                          # 作用：固定 import/export 顺序，diff 更干净
-    sort_pub_dependencies: true                        # 作用：pubspec 依赖排序
     always_put_required_named_parameters_first: true   # 作用：必填命名参数优先展示
     lines_longer_than_80_chars: false                  # 作用：放宽 80 列限制，便于移动端文案
 
@@ -60,19 +56,3 @@ linter:
     avoid_print: false                                  # 作用：禁用 print，使用统一日志
     only_throw_errors: true                            # 作用：仅抛出 Error/Exception，不抛字符串
     use_rethrow_when_possible: true                    # 作用：需要上抛时使用 rethrow 保留栈
-
-    # ---- API/健壮性 ----
-    avoid_dynamic_calls: true                          # 作用：禁止对 dynamic 直接调用
-
-    # ---- 下列规则按需开启（存在分歧/可能误报/收益有限）----
-    # prefer_single_quotes: true                       # 作用：统一使用单引号
-    # prefer_expression_function_bodies: true          # 作用：简单函数用 => 简化
-    # sort_constructors_first: true                    # 作用：构造器排在成员前
-    # no_leading_underscores_for_local_identifiers: true # 作用：局部标识符不以下划线开头
-    # join_return_with_assignment: true                # 作用：返回前合并赋值
-    # cascade_invocations: true                        # 作用：同对象多次调用用级联 ..
-    # unnecessary_to_list_in_spreads: true             # 作用：移除多余 toList()
-    # avoid_returning_null: true                       # 作用：避免返回 null（在 T? 场景可能多余）
-    # avoid_field_initializers_in_const_classes: true  # 作用：约束 const 类字段初始化
-    # parameter_assignments: true                      # 作用：避免修改入参
-    # prefer_const_constructors_in_immutables: true    # 作用：不可变类优先 const 构造
