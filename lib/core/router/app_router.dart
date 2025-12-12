@@ -1,0 +1,162 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hello_flutter/features/list/presentation/list_screen.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import '../../features/chat/presentation/chat_screen.dart';
+import '../../features/creation/presentation/creation_screen.dart';
+import '../../features/profile/presentation/profile_screen.dart';
+import '../../shared/widgets/main_scaffold.dart';
+
+part 'app_router.g.dart';
+
+final _rootNavigatorKey = GlobalKey<NavigatorState>();
+
+// 路由路径常量
+class AppRoutes {
+  AppRoutes._();
+
+  static const String chat = '/chat';
+  static const String list = '/list';
+  static const String creation = '/creation';
+  static const String profile = '/profile';
+
+  // 子路由
+  static const String chatDetail = '/chat/:id';
+  static const String settings = '/profile/settings';
+}
+
+@riverpod
+GoRouter appRouter(Ref ref) {
+  return GoRouter(
+    initialLocation: AppRoutes.chat,
+    navigatorKey: _rootNavigatorKey,
+
+    routes: [
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          return MainScaffold(navigationShell: navigationShell);
+        },
+        branches: [
+          // 聊天分支
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.chat,
+                pageBuilder: (context, state) => NoTransitionPage(
+                  key: state.pageKey,
+                  child: const ChatScreen(),
+                ),
+                routes: [
+                  // 聊天详情页
+                  GoRoute(
+                    path: ':id',
+                    name: "chatDetail",
+                    parentNavigatorKey: _rootNavigatorKey,
+                    builder: (context, state) {
+                      final chatId = state.pathParameters['id']!;
+                      return ChatDetailScreen(chatId: chatId);
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+
+          // 列表分支
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.list,
+                pageBuilder: (context, state) => NoTransitionPage(
+                  key: state.pageKey,
+                  child: const ListScreen(),
+                ),
+              ),
+            ],
+          ),
+
+          // 创作分支
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.creation,
+                pageBuilder: (context, state) => NoTransitionPage(
+                  key: state.pageKey,
+                  child: const CreationScreen(),
+                ),
+              ),
+            ],
+          ),
+
+          // 我的分支
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.profile,
+                pageBuilder: (context, state) => NoTransitionPage(
+                  key: state.pageKey,
+                  child: const ProfileScreen(),
+                ),
+                routes: [
+                  // 设置页
+                  GoRoute(
+                    path: 'settings',
+                    parentNavigatorKey: _rootNavigatorKey,
+                    builder: (context, state) => const SettingsScreen(),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
+    ],
+
+    // 错误页面
+    errorBuilder: (context, state) =>
+        Scaffold(body: Center(child: Text('页面未找到: ${state.uri}'))),
+  );
+}
+
+// 聊天详情页（示例）
+class ChatDetailScreen extends StatelessWidget {
+  final String chatId;
+
+  const ChatDetailScreen({required this.chatId, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('聊天 $chatId')),
+      body: Center(child: Text('聊天详情页: $chatId')),
+    );
+  }
+}
+
+// 设置页（示例）
+class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('设置')),
+      body: ListView(
+        children: [
+          ListTile(
+            leading: const Icon(Icons.dark_mode),
+            title: const Text('深色模式'),
+            trailing: Switch(value: false, onChanged: (value) {}),
+          ),
+          ListTile(
+            leading: const Icon(Icons.notifications),
+            title: const Text('通知设置'),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () {},
+          ),
+        ],
+      ),
+    );
+  }
+}
