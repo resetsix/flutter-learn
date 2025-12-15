@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'app_colors.dart';
 
-class AppTheme {
+final class AppTheme {
+  AppTheme._();
+
   // 亮色主题
   static ThemeData get lightTheme {
     return ThemeData(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-class AppColors {
+final class AppColors {
+  AppColors._();
+
   // 主色调
   static const Color primary = Color(0xFF007AFF); // iOS 蓝色
   static const Color primaryDark = Color(0xFF0051D5);

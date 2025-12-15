@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hello_flutter/features/list/presentation/list_screen.dart';
+import 'package:hello_flutter/__test__/page_a.dart';
+import 'package:hello_flutter/__test__/page_b.dart';
+import 'package:hello_flutter/features/profile/presentation/profile_screen.dart';
+import 'package:hello_flutter/providers/theme_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../features/chat/presentation/chat_screen.dart';
-import '../../features/creation/presentation/creation_screen.dart';
-import '../../features/profile/presentation/profile_screen.dart';
 import '../../shared/widgets/main_scaffold.dart';
 
 part 'app_router.g.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
-// 路由路径常量
-class AppRoutes {
+final class AppRoutes {
   AppRoutes._();
 
   static const String chat = '/chat';
@@ -70,7 +71,8 @@ GoRouter appRouter(Ref ref) {
                 path: AppRoutes.list,
                 pageBuilder: (context, state) => NoTransitionPage(
                   key: state.pageKey,
-                  child: const ListScreen(),
+                  child: const PageA(),
+                  // child: const ImageScreen(),
                 ),
               ),
             ],
@@ -83,7 +85,8 @@ GoRouter appRouter(Ref ref) {
                 path: AppRoutes.creation,
                 pageBuilder: (context, state) => NoTransitionPage(
                   key: state.pageKey,
-                  child: const CreationScreen(),
+                  child: const PageB(),
+                  // child: const VideoScreen(),
                 ),
               ),
             ],
@@ -134,12 +137,14 @@ class ChatDetailScreen extends StatelessWidget {
   }
 }
 
-// 设置页（示例）
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themeModeProvider);
+    final isDarkMode = themeMode == ThemeMode.dark;
+
     return Scaffold(
       appBar: AppBar(title: const Text('设置')),
       body: ListView(
@@ -147,13 +152,24 @@ class SettingsScreen extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.dark_mode),
             title: const Text('深色模式'),
-            trailing: Switch(value: false, onChanged: (value) {}),
+            trailing: Switch(
+              value: isDarkMode,
+              onChanged: (value) async {
+                await ref
+                    .read(themeModeProvider.notifier)
+                    .toggleDarkMode(value);
+              },
+            ),
           ),
           ListTile(
             leading: const Icon(Icons.notifications),
             title: const Text('通知设置'),
             trailing: const Icon(Icons.chevron_right),
-            onTap: () {},
+            onTap: () {
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(const SnackBar(content: Text('通知设置功能开发中...')));
+            },
           ),
         ],
       ),

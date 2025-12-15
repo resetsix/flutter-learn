@@ -60,14 +60,14 @@ class MainScaffold extends StatelessWidget {
           label: '聊天',
         ),
         _buildiOSTabItem(
-          icon: CupertinoIcons.list_bullet,
-          activeIcon: CupertinoIcons.list_bullet,
-          label: '列表',
+          icon: CupertinoIcons.photo,
+          activeIcon: CupertinoIcons.photo_fill,
+          label: '图片',
         ),
         _buildiOSTabItem(
-          icon: CupertinoIcons.sparkles,
-          activeIcon: CupertinoIcons.sparkles,
-          label: '创作',
+          icon: CupertinoIcons.video_camera,
+          activeIcon: CupertinoIcons.video_camera_solid,
+          label: '视频',
         ),
         _buildiOSTabItem(
           icon: CupertinoIcons.person,
@@ -96,14 +96,14 @@ class MainScaffold extends StatelessWidget {
           label: '聊天',
         ),
         NavigationDestination(
-          icon: Icon(Icons.auto_awesome_outlined),
-          selectedIcon: Icon(Icons.auto_awesome),
-          label: '创作',
+          icon: Icon(Icons.photo_outlined),
+          selectedIcon: Icon(Icons.photo),
+          label: '图片',
         ),
         NavigationDestination(
-          icon: Icon(Icons.auto_awesome_outlined),
-          selectedIcon: Icon(Icons.auto_awesome),
-          label: '创作',
+          icon: Icon(Icons.video_camera_back_outlined),
+          selectedIcon: Icon(Icons.video_camera_back),
+          label: '视频',
         ),
         NavigationDestination(
           icon: Icon(Icons.person_outline),
