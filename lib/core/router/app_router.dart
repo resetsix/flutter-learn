@@ -142,7 +142,7 @@ class SettingsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeMode = ref.watch(themeModeProvider);
+    final themeMode = ref.watch(leoThemeProvider);
     final isDarkMode = themeMode == ThemeMode.dark;
 
     return Scaffold(
@@ -155,9 +155,7 @@ class SettingsScreen extends ConsumerWidget {
             trailing: Switch(
               value: isDarkMode,
               onChanged: (value) async {
-                await ref
-                    .read(themeModeProvider.notifier)
-                    .toggleDarkMode(value);
+                await ref.read(leoThemeProvider.notifier).toggleDarkMode(value);
               },
             ),
           ),

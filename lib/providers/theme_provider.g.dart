@@ -10,7 +10,7 @@ part of 'theme_provider.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(LeoTheme)
-const themeModeProvider = LeoThemeProvider._();
+const leoThemeProvider = LeoThemeProvider._();
 
 final class LeoThemeProvider extends $NotifierProvider<LeoTheme, ThemeMode> {
   const LeoThemeProvider._()
@@ -18,14 +18,14 @@ final class LeoThemeProvider extends $NotifierProvider<LeoTheme, ThemeMode> {
         from: null,
         argument: null,
         retry: null,
-        name: r'themeModeProvider',
+        name: r'leoThemeProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$LeoThemeHash();
+  String debugGetCreateSourceHash() => _$leoThemeHash();
 
   @$internal
   @override
@@ -40,7 +40,7 @@ final class LeoThemeProvider extends $NotifierProvider<LeoTheme, ThemeMode> {
   }
 }
 
-String _$LeoThemeHash() => r'07b0aff2f05214eb2ee7e8531fe346bf34e2a3d1';
+String _$leoThemeHash() => r'1f5d0fe692f999e20de6b5d94e659a8ad3797e95';
 
 abstract class _$LeoTheme extends $Notifier<ThemeMode> {
   ThemeMode build();

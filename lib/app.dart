@@ -11,7 +11,7 @@ class LeoApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(appRouterProvider);
-    final themeMode = ref.watch(themeModeProvider);
+    final themeMode = ref.watch(leoThemeProvider);
 
     return MaterialApp.router(
       title: 'AI Chat',
