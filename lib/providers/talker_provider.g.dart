@@ -47,4 +47,4 @@ final class TalkerProvider extends $FunctionalProvider<Talker, Talker, Talker>
   }
 }
 
-String _$talkerHash() => r'da5ba79137170edba935cefec61c7efe84a40c9e';
+String _$talkerHash() => r'39a80a55ff3208e1a0d214634b76ae706f730461';

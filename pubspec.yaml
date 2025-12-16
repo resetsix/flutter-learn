@@ -50,6 +50,8 @@ dependencies:
   talker_riverpod_logger: ^5.1.9
   talker_dio_logger: ^5.1.9
   logger: ^2.6.2
+  freezed_annotation: ^3.1.0
+  json_annotation: ^4.9.0
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +65,8 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   riverpod_generator: ^3.0.3
   build_runner: ^2.10.4
+  freezed: ^3.2.3
+  json_serializable: ^6.11.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
