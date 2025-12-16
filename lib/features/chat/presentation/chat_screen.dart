@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hello_flutter/providers/talker_provider.dart';
 
 class ChatScreen extends ConsumerWidget {
   const ChatScreen({super.key});
@@ -27,6 +28,9 @@ class ChatScreen extends ConsumerWidget {
             ),
             trailing: const Text('12:30'),
             onTap: () async {
+              final talk = ref.read(talkerProvider);
+
+              talk.info("Hello");
               await context.pushNamed(
                 "chatDetail",
                 pathParameters: {"id": "$index"},

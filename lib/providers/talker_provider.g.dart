@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'device_provider.dart';
+part of 'talker_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,42 +9,42 @@ part of 'device_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(deviceId)
-const deviceIdProvider = DeviceIdProvider._();
+@ProviderFor(talker)
+const talkerProvider = TalkerProvider._();
 
-final class DeviceIdProvider extends $FunctionalProvider<String, String, String>
-    with $Provider<String> {
-  const DeviceIdProvider._()
+final class TalkerProvider extends $FunctionalProvider<Talker, Talker, Talker>
+    with $Provider<Talker> {
+  const TalkerProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'deviceIdProvider',
-        isAutoDispose: true,
+        name: r'talkerProvider',
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$deviceIdHash();
+  String debugGetCreateSourceHash() => _$talkerHash();
 
   @$internal
   @override
-  $ProviderElement<String> $createElement($ProviderPointer pointer) =>
+  $ProviderElement<Talker> $createElement($ProviderPointer pointer) =>
       $ProviderElement(pointer);
 
   @override
-  String create(Ref ref) {
-    return deviceId(ref);
+  Talker create(Ref ref) {
+    return talker(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(String value) {
+  Override overrideWithValue(Talker value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<String>(value),
+      providerOverride: $SyncValueProvider<Talker>(value),
     );
   }
 }
 
-String _$deviceIdHash() => r'da721b9a45b35788a36410196a8eb60ff88f1730';
+String _$talkerHash() => r'da5ba79137170edba935cefec61c7efe84a40c9e';

@@ -87,7 +87,7 @@ final class LeoThemeProvider extends $NotifierProvider<LeoTheme, ThemeMode> {
   }
 }
 
-String _$leoThemeHash() => r'bf944483084eb8debaefd955fef7fc6ec1aa48d3';
+String _$leoThemeHash() => r'a158f343f19f6056e177a85e06e2a84717d02612';
 
 abstract class _$LeoTheme extends $Notifier<ThemeMode> {
   ThemeMode build();
