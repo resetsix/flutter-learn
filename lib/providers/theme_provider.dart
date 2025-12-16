@@ -1,37 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:hello_flutter/core/conf/base.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'theme_provider.g.dart';
 
-@riverpod
-class LeoTheme extends _$LeoTheme {
-  static const String _key = 'theme_mode';
-
-  @override
-  ThemeMode build() {
-    final prefs = ref.watch(sharedPreferencesProvider);
-    final themeModeString = prefs.getString(_key);
-
-    if (themeModeString == 'light') return ThemeMode.light;
-    if (themeModeString == 'dark') return ThemeMode.dark;
-    return ThemeMode.system;
-  }
-
-  Future<void> setThemeMode(ThemeMode mode) async {
-    state = mode;
-
-    final prefs = ref.read(sharedPreferencesProvider);
-    await prefs.setString(_key, mode.toString().split('.').last);
-  }
-
-  Future<void> toggleDarkMode(bool isDark) async {
-    await setThemeMode(isDark ? ThemeMode.dark : ThemeMode.light);
-  }
+@Riverpod(keepAlive: true)
+SharedPreferences prefs(Ref ref) {
+  throw UnimplementedError();
 }
 
-/// 预加载
-@Riverpod(keepAlive: true)
-SharedPreferences sharedPreferences(Ref ref) {
-  throw UnimplementedError('需要在 main.dart 中覆盖');
+@riverpod
+class LeoTheme extends _$LeoTheme {
+  @override
+  ThemeMode build() {
+    final prefs = ref.watch(prefsProvider);
+    final themeModeString = prefs.getString(BaseConf.kThemeModeKey);
+    return ThemeMode.values.firstWhere(
+      (e) => e.toString() == themeModeString,
+      orElse: () => ThemeMode.system,
+    );
+  }
+
+  Future<void> setTheme(ThemeMode mode) async {
+    state = mode;
+    final prefs = ref.read(prefsProvider);
+    await prefs.setString(BaseConf.kThemeModeKey, mode.toString());
+  }
 }

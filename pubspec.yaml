@@ -44,6 +44,8 @@ dependencies:
   flutter_markdown: ^0.7.7+1
   fluttertoast: ^9.0.0
   easy_refresh: ^3.4.0
+  android_id: ^0.5.1
+  uuid: ^4.5.2
 
 dev_dependencies:
   flutter_test:

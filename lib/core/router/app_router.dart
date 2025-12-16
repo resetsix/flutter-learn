@@ -155,7 +155,9 @@ class SettingsScreen extends ConsumerWidget {
             trailing: Switch(
               value: isDarkMode,
               onChanged: (value) async {
-                await ref.read(leoThemeProvider.notifier).toggleDarkMode(value);
+                await ref
+                    .read(leoThemeProvider.notifier)
+                    .setTheme(value ? ThemeMode.dark : ThemeMode.light);
               },
             ),
           ),
