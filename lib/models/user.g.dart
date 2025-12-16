@@ -7,12 +7,16 @@ part of 'user.dart';
 // **************************************************************************
 
 _UserRes _$UserResFromJson(Map<String, dynamic> json) => _UserRes(
-  posts: (json['posts'] as List<dynamic>?)
-      ?.map((e) => UserPost.fromJson(e as Map<String, dynamic>))
-      .toList(),
-  comments: (json['comments'] as List<dynamic>?)
-      ?.map((e) => UserComment.fromJson(e as Map<String, dynamic>))
-      .toList(),
+  posts:
+      (json['posts'] as List<dynamic>?)
+          ?.map((e) => UserPost.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
+  comments:
+      (json['comments'] as List<dynamic>?)
+          ?.map((e) => UserComment.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
   profile: json['profile'] == null
       ? null
       : UserProfile.fromJson(json['profile'] as Map<String, dynamic>),

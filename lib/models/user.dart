@@ -7,8 +7,8 @@ part 'user.g.dart';
 @freezed
 abstract class UserRes with _$UserRes {
   const factory UserRes({
-    List<UserPost>? posts,
-    List<UserComment>? comments,
+    @Default([]) List<UserPost> posts,
+    @Default([]) List<UserComment> comments,
     UserProfile? profile,
   }) = _UserRes;
 

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UserRes implements DiagnosticableTreeMixin {
 
- List<UserPost>? get posts; List<UserComment>? get comments; UserProfile? get profile;
+ List<UserPost> get posts; List<UserComment> get comments; UserProfile? get profile;
 /// Create a copy of UserRes
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -54,7 +54,7 @@ abstract mixin class $UserResCopyWith<$Res>  {
   factory $UserResCopyWith(UserRes value, $Res Function(UserRes) _then) = _$UserResCopyWithImpl;
 @useResult
 $Res call({
- List<UserPost>? posts, List<UserComment>? comments, UserProfile? profile
+ List<UserPost> posts, List<UserComment> comments, UserProfile? profile
 });
 
 
@@ -71,11 +71,11 @@ class _$UserResCopyWithImpl<$Res>
 
 /// Create a copy of UserRes
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? posts = freezed,Object? comments = freezed,Object? profile = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? posts = null,Object? comments = null,Object? profile = freezed,}) {
   return _then(_self.copyWith(
-posts: freezed == posts ? _self.posts : posts // ignore: cast_nullable_to_non_nullable
-as List<UserPost>?,comments: freezed == comments ? _self.comments : comments // ignore: cast_nullable_to_non_nullable
-as List<UserComment>?,profile: freezed == profile ? _self.profile : profile // ignore: cast_nullable_to_non_nullable
+posts: null == posts ? _self.posts : posts // ignore: cast_nullable_to_non_nullable
+as List<UserPost>,comments: null == comments ? _self.comments : comments // ignore: cast_nullable_to_non_nullable
+as List<UserComment>,profile: freezed == profile ? _self.profile : profile // ignore: cast_nullable_to_non_nullable
 as UserProfile?,
   ));
 }
@@ -173,7 +173,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<UserPost>? posts,  List<UserComment>? comments,  UserProfile? profile)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<UserPost> posts,  List<UserComment> comments,  UserProfile? profile)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _UserRes() when $default != null:
 return $default(_that.posts,_that.comments,_that.profile);case _:
@@ -194,7 +194,7 @@ return $default(_that.posts,_that.comments,_that.profile);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<UserPost>? posts,  List<UserComment>? comments,  UserProfile? profile)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<UserPost> posts,  List<UserComment> comments,  UserProfile? profile)  $default,) {final _that = this;
 switch (_that) {
 case _UserRes():
 return $default(_that.posts,_that.comments,_that.profile);case _:
@@ -214,7 +214,7 @@ return $default(_that.posts,_that.comments,_that.profile);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<UserPost>? posts,  List<UserComment>? comments,  UserProfile? profile)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<UserPost> posts,  List<UserComment> comments,  UserProfile? profile)?  $default,) {final _that = this;
 switch (_that) {
 case _UserRes() when $default != null:
 return $default(_that.posts,_that.comments,_that.profile);case _:
@@ -229,25 +229,21 @@ return $default(_that.posts,_that.comments,_that.profile);case _:
 @JsonSerializable()
 
 class _UserRes with DiagnosticableTreeMixin implements UserRes {
-  const _UserRes({final  List<UserPost>? posts, final  List<UserComment>? comments, this.profile}): _posts = posts,_comments = comments;
+  const _UserRes({final  List<UserPost> posts = const [], final  List<UserComment> comments = const [], this.profile}): _posts = posts,_comments = comments;
   factory _UserRes.fromJson(Map<String, dynamic> json) => _$UserResFromJson(json);
 
- final  List<UserPost>? _posts;
-@override List<UserPost>? get posts {
-  final value = _posts;
-  if (value == null) return null;
+ final  List<UserPost> _posts;
+@override@JsonKey() List<UserPost> get posts {
   if (_posts is EqualUnmodifiableListView) return _posts;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(value);
+  return EqualUnmodifiableListView(_posts);
 }
 
- final  List<UserComment>? _comments;
-@override List<UserComment>? get comments {
-  final value = _comments;
-  if (value == null) return null;
+ final  List<UserComment> _comments;
+@override@JsonKey() List<UserComment> get comments {
   if (_comments is EqualUnmodifiableListView) return _comments;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(value);
+  return EqualUnmodifiableListView(_comments);
 }
 
 @override final  UserProfile? profile;
@@ -291,7 +287,7 @@ abstract mixin class _$UserResCopyWith<$Res> implements $UserResCopyWith<$Res> {
   factory _$UserResCopyWith(_UserRes value, $Res Function(_UserRes) _then) = __$UserResCopyWithImpl;
 @override @useResult
 $Res call({
- List<UserPost>? posts, List<UserComment>? comments, UserProfile? profile
+ List<UserPost> posts, List<UserComment> comments, UserProfile? profile
 });
 
 
@@ -308,11 +304,11 @@ class __$UserResCopyWithImpl<$Res>
 
 /// Create a copy of UserRes
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? posts = freezed,Object? comments = freezed,Object? profile = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? posts = null,Object? comments = null,Object? profile = freezed,}) {
   return _then(_UserRes(
-posts: freezed == posts ? _self._posts : posts // ignore: cast_nullable_to_non_nullable
-as List<UserPost>?,comments: freezed == comments ? _self._comments : comments // ignore: cast_nullable_to_non_nullable
-as List<UserComment>?,profile: freezed == profile ? _self.profile : profile // ignore: cast_nullable_to_non_nullable
+posts: null == posts ? _self._posts : posts // ignore: cast_nullable_to_non_nullable
+as List<UserPost>,comments: null == comments ? _self._comments : comments // ignore: cast_nullable_to_non_nullable
+as List<UserComment>,profile: freezed == profile ? _self.profile : profile // ignore: cast_nullable_to_non_nullable
 as UserProfile?,
   ));
 }
