@@ -3,6 +3,7 @@
         android:label="hello_flutter"
         android:name="${applicationName}"
         android:enableOnBackInvokedCallback="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
