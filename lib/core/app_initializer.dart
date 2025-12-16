@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hello_flutter/core/conf/base.dart';
 import 'package:hello_flutter/utils/device.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,10 +19,14 @@ class AppInitializer {
 
   static Future<void> _initDeviceId(SharedPreferences prefs) async {
     final currentId = prefs.getString(BaseConf.kDeviceIdKey);
+    const secureStorage = FlutterSecureStorage();
 
-    if (currentId == null) {
+    if ((await secureStorage.containsKey(key: BaseConf.kDeviceIdKey)) ==
+        false) {
       final newDeviceId = await DeviceUtils.getDeviceId();
-      await prefs.setString(BaseConf.kDeviceIdKey, newDeviceId);
+      await secureStorage.write(key: BaseConf.kDeviceIdKey, value: newDeviceId);
+      // await prefs.setString(BaseConf.kDeviceIdKey, newDeviceId);
+
       debugPrint("首次运行，生成唯一标识: $newDeviceId");
     } else {
       debugPrint("读取已有唯一标识: $currentId");
