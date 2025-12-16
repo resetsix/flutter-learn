@@ -9,24 +9,20 @@ class AppInitializer {
 
   static Future<SharedPreferences> init() async {
     WidgetsFlutterBinding.ensureInitialized();
-
     final prefs = await SharedPreferences.getInstance();
-
     await _initDeviceId(prefs);
-
     return prefs;
   }
 
   static Future<void> _initDeviceId(SharedPreferences prefs) async {
-    final currentId = prefs.getString(BaseConf.kDeviceIdKey);
+    // final currentId = prefs.getString(BaseConf.kDeviceIdKey);
     const secureStorage = FlutterSecureStorage();
+    final newDeviceId = await DeviceUtils.getDeviceId();
+    final currentId = await secureStorage.read(key: BaseConf.kDeviceIdKey);
+    final hasId = await secureStorage.containsKey(key: BaseConf.kDeviceIdKey);
 
-    if ((await secureStorage.containsKey(key: BaseConf.kDeviceIdKey)) ==
-        false) {
-      final newDeviceId = await DeviceUtils.getDeviceId();
+    if (hasId == false) {
       await secureStorage.write(key: BaseConf.kDeviceIdKey, value: newDeviceId);
-      // await prefs.setString(BaseConf.kDeviceIdKey, newDeviceId);
-
       debugPrint("首次运行，生成唯一标识: $newDeviceId");
     } else {
       debugPrint("读取已有唯一标识: $currentId");
