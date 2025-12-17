@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hello_flutter/providers/theme_provider.dart';
 
@@ -20,7 +21,7 @@ class LeoApp extends ConsumerWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: themeMode,
-
+      builder: EasyLoading.init(),
       routerConfig: router,
     );
   }
