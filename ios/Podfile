@@ -39,38 +39,33 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
-
+    
     target.build_configurations.each do |config|
       config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= [
         '$(inherited)',
 
-        # 1. 相机拍照
-        'PERMISSION_CAMERA=1',
+        # 启用权限
+        'PERMISSION_PHOTOS=1',            # 相册
+        'PERMISSION_CAMERA=1',            # 摄像头
+        'PERMISSION_MICROPHONE=1',        # 麦克风
+        'PERMISSION_SPEECH_RECOGNIZER=1', # 语音识别
 
-        # 2. 相册访问 & 保存图片
-        'PERMISSION_PHOTOS=1',
-
-        # 3. 麦克风 (语音通话、STT录音)
-        'PERMISSION_MICROPHONE=1',
-
-        # 4. 语音转文字 (STT)
-        'PERMISSION_SPEECH_RECOGNIZER=1',
-
-        # 5. 蓝牙 (语音通话时连接蓝牙耳机通常需要)
-        'PERMISSION_BLUETOOTH=1',
-
-        # 你的需求中未提及以下权限，建议关闭以通过审核
-        
-        'PERMISSION_LOCATION=0',                # 定位
-        'PERMISSION_CONTACTS=0',                # 联系人
-        'PERMISSION_CALENDAR=0',                # 日历
-        'PERMISSION_REMINDERS=0',               # 提醒事项
-        'PERMISSION_SENSORS=0',                 # 传感器 (计步器等)
-        'PERMISSION_MEDIA_LIBRARY=0',           # Apple Music 库
+        # 禁用权限
+        'PERMISSION_CONTACTS=0',          # 联系人
+        'PERMISSION_LOCATION=0',          # 定位
+        'PERMISSION_CALENDAR=0',          # 日历
+        'PERMISSION_EVENTS=0',            # 日历事件
+        'PERMISSION_REMINDERS=0',         # 提醒事项
+        'PERMISSION_BLUETOOTH=0',         # 蓝牙
+        'PERMISSION_MOTION=0',            # 运动与健身
+        'PERMISSION_SENSORS=0',           # 身体传感器
+        'PERMISSION_MEDIA_LIBRARY=0',     # 媒体库
         'PERMISSION_APP_TRACKING_TRANSPARENCY=0', # 广告追踪
-        'PERMISSION_CRITICAL_ALERTS=0',         # 紧急通知
+        'PERMISSION_CRITICAL_ALERTS=0',   # 关键警报
+        'PERMISSION_NOTIFICATIONS=0',     # 通知
+        'PERMISSION_USER_NOTIFICATIONS=0',# 用户通知
+        'PERMISSION_ASSISTANT=0',         # Siri/助理
       ]
     end
-
   end
 end

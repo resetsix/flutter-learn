@@ -1,33 +1,48 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- 相机 -->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <!-- 录音/通话 -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <!-- 蓝牙耳机 (Android 12+) -->
-    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-    
-    <!-- 存储/相册 (兼容旧版本) -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.zeo.app">
+
+    <!-- ================= 核心权限配置 (生产环境版) ================= -->
+
+    <!-- 1. 网络请求 (表格: 网络请求) -->
+    <!-- 必须权限 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <!-- 2. 录音/麦克风 (表格: STT, 实时语音通话) -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <!-- 通话时切换扬声器/听筒需要 -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+
+    <!-- 3. 相册与存储 (表格: 保存/选择图片, 保存文件) -->
+    <!-- Android 12 及以下: 传统的读写权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
-    
-    <!-- 相册 (Android 13+) -->
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
 
-    <!-- 图片权限 -->
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <!-- 视频权限 -->
-    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
-    <!-- 音频权限 -->
-    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <!-- Android 13+ (API 33): 细分的媒体权限 (Google Play 强制要求) -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO"/>
 
+    <!-- 4. 屏幕录制 (表格: 屏幕捕捉/录制) -->
+    <!-- 开启前台服务必须 -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <!-- Android 14+ 录屏必须显式声明此类型 -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION"/>
+
+     <!-- 5. 相机权限 (拍照/录像) -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <!-- ======================================================= -->
+
+    <!-- usesCleartextTraffic="true" 允许 HTTP 请求 (避免部分图片/接口加载失败) -->
+    <!-- requestLegacyExternalStorage="true" 允许 Android 10 使用旧版存储逻辑 (确保"保存文件到下载"不报错) -->
     <application
-        android:label="Leo"
+        android:label="zeo"
         android:name="${applicationName}"
-        android:enableOnBackInvokedCallback="true"
-        android:allowBackup="false"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        
+        android:usesCleartextTraffic="true"
+        android:requestLegacyExternalStorage="true">
+        
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -37,10 +52,6 @@
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize">
-            <!-- Specifies an Android theme to apply to this Activity as soon as
-                 the Android process has started. This theme is visible to the user
-                 while the Flutter UI initializes. After that, this theme continues
-                 to determine the Window background behind the Flutter UI. -->
             <meta-data
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"
@@ -50,18 +61,23 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <!-- Don't delete the meta-data below.
-             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
+
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
-    <!-- Required to query activities that can process text, see:
-         https://developer.android.com/training/package-visibility and
-         https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.
 
-         In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin. -->
     <queries>
+        <!-- 允许打开外部 Web 链接 (Terms/Privacy) -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="http" />
+        </intent>
+        <!-- 允许处理文本 (剪贴板/选择文本相关) -->
         <intent>
             <action android:name="android.intent.action.PROCESS_TEXT"/>
             <data android:mimeType="text/plain"/>

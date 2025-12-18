@@ -46,16 +46,21 @@
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 
-	<!-- 权限 -->
-	<key>NSCameraUsageDescription</key>
-	<string>我们需要使用相机拍摄照片。</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>我们需要使用麦克风进行语音通话和识别。</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>我们需要访问相册以选取图片。</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>我们需要将图片保存到您的相册。</string>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>我们需要识别您的语音以转换为文字。</string>
+  <!-- ================= 权限描述配置 ================= -->
+  <!-- 1. 相册权限 (读取 - 对应 PERMISSION_PHOTOS=1) -->
+  <key>NSPhotoLibraryUsageDescription</key>
+  <string>Zeo需要访问您的相册，以便您可以选择并上传图片。</string>
+  <!-- 2. 相册权限 (写入 - 对应 PERMISSION_PHOTOS=1) -->
+  <key>NSPhotoLibraryAddUsageDescription</key>
+  <string>Zeo需要访问您的相册，以便将生成的图片保存到本地。</string>
+  <!-- 3. 相机权限 (对应 PERMISSION_CAMERA=1) -->
+  <key>NSCameraUsageDescription</key>
+  <string>Zeo需要访问您的相机，以便您可以拍摄照片或视频进行上传。</string>
+  <!-- 4. 麦克风权限 (对应 PERMISSION_MICROPHONE=1) -->
+  <key>NSMicrophoneUsageDescription</key>
+  <string>Zeo需要使用麦克风，以便支持实时语音通话和语音转文字功能。</string>
+  <!-- 5. 语音识别权限 (对应 PERMISSION_SPEECH_RECOGNIZER=1) -->
+  <key>NSSpeechRecognitionUsageDescription</key>
+  <string>Zeo需要语音识别功能，以便将您的语音精确转换为文字。</string>
 </dict>
 </plist>
